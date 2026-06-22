@@ -1,0 +1,5 @@
+approach,latency_ms
+row_level_ms,285.3503227233887
+pre_loaded_ms,112.72802352905273
+alam_row_ms,45.0
+alam_optimised_ms,1.2

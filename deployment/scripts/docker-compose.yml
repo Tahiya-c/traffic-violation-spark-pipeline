@@ -1,0 +1,71 @@
+version: '3.8'
+
+# AWAS A3 — Docker Compose
+# Replicates the A2 container setup with named network for DNS resolution.
+#
+# IMPORTANT BEFORE RUNNING:
+# 1. Update KAFKA_ADVERTISED_HOST_NAME to your machine's IPv4 address
+#    Run: ipconfig (Windows) or ifconfig (Mac/Linux)
+#    Example: KAFKA_ADVERTISED_HOST_NAME: 192.168.68.55
+#
+# 2. Start with: docker-compose up -d
+# 3. Stop with:  docker-compose down
+#
+# After starting, container names resolve by DNS on the awas-net network.
+# No need to run docker inspect for IPs — use container name directly:
+#   MONGO_URI = "mongodb://mongodb:27017/"
+#   KAFKA_BOOTSTRAP = "kafka:9092"
+
+networks:
+  awas-net:
+    driver: bridge
+
+services:
+
+  zookeeper:
+    image: fit3182/zookeeper
+    container_name: lucid_bohr
+    ports:
+      - "2181:2181"
+    networks:
+      - awas-net
+    restart: unless-stopped
+
+  kafka:
+    image: fit3182/kafka
+    container_name: kafka_a2
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.68.55   # UPDATE TO YOUR MACHINE'S IPv4
+      KAFKA_ZOOKEEPER_CONNECT: lucid_bohr:2181
+    depends_on:
+      - zookeeper
+    networks:
+      - awas-net
+    restart: unless-stopped
+
+  mongodb:
+    image: fit3182/mongo
+    container_name: zealous_shirley
+    ports:
+      - "27017:27017"
+    networks:
+      - awas-net
+    restart: unless-stopped
+
+  spark:
+    image: fit3182/pyspark
+    container_name: spark_a2
+    ports:
+      - "8888:8888"
+      - "4040:4040"
+      - "8050:8050"
+    volumes:
+      - .:/home/student
+    depends_on:
+      - mongodb
+      - kafka
+    networks:
+      - awas-net
+    restart: unless-stopped

@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.VectorAssembler","timestamp":1781254083178,"sparkVersion":"3.3.0","uid":"VectorAssembler_97aee17f5706","paramMap":{"inputCols":["max_speed_over_limit","avg_speed_over_limit","max_speed_ratio","segment_id"],"outputCol":"features"},"defaultParamMap":{"handleInvalid":"error","outputCol":"VectorAssembler_97aee17f5706__output"}}
