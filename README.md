@@ -396,5 +396,3 @@ Zhao, Q., Vargas-Herrera, P., & Mendoza, R. (2025). Application of machine learn
 Zhou, H., Wang, Y., & Huang, K. (2024). Recent advances in traffic accident analysis and prediction: A comprehensive review of machine learning techniques [Preprint]. arXiv. https://arxiv.org/abs/2406.13968
 
 ---
-
-*Last updated: June 2026 | FIT3182 Big Data Management and Processing*
