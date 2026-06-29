@@ -1,6 +1,7 @@
-# AWAS A3 — Spark ML on Streams
+# traffic-risk-prediction-spark-kafka
 
-This project extends the Assignment 2 AWAS (Automated Warning and Alert System) traffic monitoring pipeline with a Spark ML prediction layer. The extension trains a Random Forest classifier offline on historical and live violation data, deploys the trained model as a Spark `PipelineModel` for real-time batch inference on Kafka streams, maintains a 24-hour watchlist of HIGH_RISK vehicles, and emits proactive alerts before formal violations are confirmed by the A2 rule-based detector.
+A real-time traffic risk prediction pipeline built on Apache Kafka and Spark Structured Streaming. The system ingests live camera events from roadside checkpoints, detects speed violations across monitored road segments, and layers a Spark ML prediction model on top to identify high-risk vehicles before a new violation is confirmed.
+A Random Forest classifier is trained offline on historical violation data and deployed as a Spark PipelineModel for low-latency batch inference on live Kafka streams. Vehicles flagged as HIGH_RISK are added to a 24-hour watchlist — when they reappear at any camera in the network, a proactive alert fires ahead of the rule-based detector.
 
 The design follows the train-offline, infer-in-stream pattern described by Nair et al. (2017), with model interpretability provided via SHAP analysis following Li et al. (2022), and streaming performance tuned using guidance from Maarala et al. (2015) and Kathait et al. (2025).
 
@@ -61,7 +62,7 @@ fit3182-A3/
 ```
 Kafka Topics                  A2 Streaming Pipeline             MongoDB (awas_db)
 ─────────────                 ─────────────────────             ─────────────────
-camera-events-A ──┐           data_design_streaming.ipynb       violations       ←── A2 writes
+camera-events-A ──┐           data_design_streaming.ipynb       violations       
 camera-events-B ──┼──────────► stream-stream join               cameras
 camera-events-C ──┘           watermarking + upsert             watchlist        ←── ML writes
                               ↓                                 proactive_alerts ←── ML writes
