@@ -1,4 +1,4 @@
-# traffic-risk-prediction-spark-kafka
+# Real-Time Traffic Risk Prediction — Kafka · Spark ML · MongoDB
 
 A real-time traffic risk prediction pipeline built on Apache Kafka and Spark Structured Streaming. The system ingests live camera events from roadside checkpoints, detects speed violations across monitored road segments, and layers a Spark ML prediction model on top to identify high-risk vehicles before a new violation is confirmed.
 A Random Forest classifier is trained offline on historical violation data and deployed as a Spark PipelineModel for low-latency batch inference on live Kafka streams. Vehicles flagged as HIGH_RISK are added to a 24-hour watchlist — when they reappear at any camera in the network, a proactive alert fires ahead of the rule-based detector.
