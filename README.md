@@ -7,12 +7,6 @@ The design follows the train-offline, infer-in-stream pattern described by Nair 
 
 ---
 
-## AI Declaration
-
-This assignment used generative AI (Claude by Anthropic) to assist with code debugging, architecture planning, and documentation drafting. All research citations, design decisions, experimental results, and final implementations were reviewed, validated, and understood by the team before submission.
-
----
-
 ## Project Structure
 
 ```
